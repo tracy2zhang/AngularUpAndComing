@@ -5,6 +5,9 @@ ehthumbs.db
 # webstorm config
 .idea/*
 
+#node module
+node_modules
+
 # Folder config file
 Desktop.ini
 

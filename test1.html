@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html ng-app="noteApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>AngularJS</title>
+    <link rel="stylesheet" href="bootstrap-3.2/css/bootstrap.min.css"/>
+    <script src="angular/angular.min.js"></script>
+    <script>
+
+        var noteApp = angular.module("noteApp",[]);
+        var mainCtrl = noteApp.controller("mainCtrl",["$scope",function($scope) {
+            $scope.username = "zhangyi";
+            var _self = this;
+            this.helloMsg = "hello";
+            var goodbyeMsg = "goodbye";
+            _self.change = function() {
+              _self.helloMsg = "world";
+            };
+            _self.students = {
+                Zhangyi : {
+                    age : 23,
+                    credit : 100
+                },
+                zhangyi : {
+                    age : 21,
+                    credit : 91
+                },
+                wangxin : {
+                    age : 24,
+                    credit : 87
+                },
+                dongxiangwei : {
+                    age : 99,
+                    credit : 50
+                }
+            };
+            _self.nodes = [
+                {
+                    id : 1,
+                    points : 10
+                },
+                {
+                    id : 2,
+                    points : 11
+                },
+                {
+                    id : 3,
+                    points : 12
+                }
+            ];
+            _self.changeNodes = function() {
+                _self.nodes = [
+                    {
+                        id : 1,
+                        points : 100
+                    },
+                    {
+                        id : 2,
+                        points : 110
+                    },
+                    {
+                        id : 3,
+                        points : 120
+                    }
+                ];
+            };
+        }]);
+
+    </script>
+</head>
+<body ng-controller="mainCtrl as ctrl">
+    <div>
+        {{ctrl.helloMsg}}1
+    </div>
+    <div>
+        {{ctrl.username}}2
+    </div>
+    <div>
+        {{ctrl.goodbyeMsg}}3
+        <span ng-bind="username"></span>
+    </div>
+    <div>
+        <button class="btn btn-default" ng-click="ctrl.change()">change</button>
+    </div>
+    <ul>
+        <li ng-repeat="(key, value) in ctrl.students">
+            first <span ng-bind="$first"></span><br/>
+            middle <span ng-bind="$middle"></span><br/>
+            last <span ng-bind="$last"></span><br/>
+            index <span ng-bind="$index"></span><br/>
+            first <span ng-bind="$first"></span><br/>
+            even <span ng-bind="$even"></span><br/>
+            odd <span ng-bind="$odd"></span><br/>
+            key:<span ng-bind="key"></span><br/>
+            age:<span ng-bind="value.age"></span>
+            credit:<span ng-bind="value.credit"></span>
+        </li>
+    </ul>
+    <!--<ul>
+        <li ng-repeat="(key, value) in ctrl.nodes">
+            first <span ng-bind="$first"></span><br/>
+            middle <span ng-bind="$middle"></span><br/>
+            last <span ng-bind="$last"></span><br/>
+            index <span ng-bind="$index"></span><br/>
+            first <span ng-bind="$first"></span><br/>
+            even <span ng-bind="$even"></span><br/>
+            odd <span ng-bind="$odd"></span><br/>
+            key:<span ng-bind="key"></span><br/>
+            value:<span ng-bind="value.points"></span>
+        </li>
+    </ul>-->
+    <ul>
+        <li ng-repeat="node in ctrl.nodes track by node.id">
+            {{node.$$hashKey}}
+            value:<span ng-bind="node.points"></span>
+        </li>
+    </ul>
+
+    <button class="btn btn-default" ng-click="ctrl.changeNodes()">change</button>
+    <!--<ul>
+        <li ng-repeat-start="node in ctrl.nodes">
+            id:{{node.id}}
+        </li>
+        <li ng-repeat-end>
+            points:{{node.points}}
+        </li>
+    </ul>-->
+</body>
+</html>

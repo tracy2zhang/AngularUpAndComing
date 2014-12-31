@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular/angular.min.js"></script>
+    <script>
+        var noteApp = angular.module("noteApp",[]);
+        var mainCtrl = noteApp.controller("mainCtrl",[function() {
+            var _self = this;
+            _self.submit = function() {
+               console.log(_self.user);
+            }
+        }]);
+    </script>
+</head>
+<body ng-app="noteApp">
+    <form action="" name="myForm" ng-controller="mainCtrl as ctrl" ng-submit="ctrl.submit()">
+        <input type="text" ng-model="ctrl.user.name" required ng-minlength="5"/><br><br>
+        <input type="password" ng-model="ctrl.user.password" required/><br><br>
+        <input type="email"/>
+        <input type="submit" value="submit" ng-disabled="myForm.$invalid"/><br>
+
+    </form>
+</body>
+</html>

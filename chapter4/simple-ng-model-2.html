@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular/angular.min.js"></script>
+    <script>
+        var noteApp = angular.module("noteApp",[]);
+        var mainCtrl = noteApp.controller("mainCtrl",[function() {
+            var _self = this;
+            _self.change = function() {
+//                _self.username = "username changed!";
+//                _self.password = "password changed!"
+            };
+            _self.submit = function() {
+                alert(_self.username + "-" + _self.password);
+            }
+        }]);
+    </script>
+</head>
+<body ng-app="noteApp">
+    <div ng-controller="mainCtrl as ctrl" ng-init="ctrl.username='zhangyi'">
+        <input type="text" ng-model="ctrl.username">
+        <input type="password" ng-model="ctrl.password">
+        <button ng-click="ctrl.change()">change</button>
+        <button ng-click="ctrl.submit()">submit</button>
+    </div>
+</body>
+</html>
