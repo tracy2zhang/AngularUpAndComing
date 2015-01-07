@@ -33,9 +33,40 @@
             left: 30%;
         }
 
+        #menu {
+             position: fixed;
+             left: 50%;
+             margin-left: 220px;
+            width: 200px;
+         }
+
+        #menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #menu ul a{
+            display: block;
+            margin: 5px;
+            width: 200px;
+            height: 30px;
+            font: bold 14px/30px "微软雅黑";
+            text-decoration: none;
+            color: #333;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        #menu ul a:hover,#menu ul a.current {
+            color: #ffffff;
+            background: #269abc;
+        }
+
         section {
+            width:400px;
             padding: 10px;
-            margin: 20px;
+            margin: 20px auto;
+            border: 2px solid #269abc;
         }
 
         div.header {
@@ -49,10 +80,44 @@
             padding-bottom: 10px;
             padding-top: 10px;
             position: sticky;
+            position: -webkit-sticky;
             top: 0;
         }
     </style>
 </head>
+<script src="jquery/jquery-1.10.2.js"></script>
+<script>
+
+    $(function() {
+
+        $(window).scroll(function() {
+            var top = $(document).scrollTop();
+            var sections = $("section");
+            var menu = $("#menu");
+
+            var currentID = "";
+
+            sections.each(function() {
+                var _this = $(this);
+                var sectionTop = _this.offset().top;
+                if(top > sectionTop - 50) {
+                    currentID = "#" + _this.attr("id");
+                } else {
+                    return false;
+                }
+            });
+
+            var currentLink = menu.find(".current");
+            if(currentID && currentLink.attr("href")!=currentID) {
+                currentLink.removeClass("current");
+                menu.find("a[href="+currentID+"]").addClass("current");
+            }
+        });
+
+    });
+
+
+</script>
 <body>
 
     <!--<div id="box1"></div>
@@ -64,7 +129,19 @@
         </div>
     </div>-->
 
-    <section>
+    <div id="menu">
+        <ul>
+            <li><a href="#section1" class="current">iOS(高级)开发工程师</a></li>
+            <li><a href="#section2">Android(高级)开发工程师</a></li>
+            <li><a href="#section3">IT 工程师</a></li>
+            <li><a href="#section4">Python工程师</a></li>
+            <li><a href="#section5">JS工程师</a></li>
+            <li><a href="#section6">Java工程师</a></li>
+            <li><a href="#section7">C#工程师</a></li>
+        </ul>
+    </div>
+
+    <section id="section1">
         <div class="header">iOS(高级)开发工程师</div>
         <div class="content">
             要提交的材料：<br>
@@ -75,11 +152,14 @@
             5.你参与开发的移动产品(名称,链接)<br>
             工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
             请将简历发送至：hr@bytedance.com<br>
-        </div>
-    </section>
-    <section>
-        <div class="header">Android(高级)开发工程师</div>
-        <div class="content">
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
             要提交的材料：<br>
             1.简历,SNS账号（或链接），如微博、豆瓣等<br>
             2.你应聘的理由<br>
@@ -90,9 +170,186 @@
             请将简历发送至：hr@bytedance.com<br>
         </div>
     </section>
-    <section>
+    <section id="section2">
+        <div class="header">Android(高级)开发工程师</div>
+        <div class="content">
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+        </div>
+    </section>
+    <section id="section3">
         <div class="header">IT 工程师</div>
         <div class="content">
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+        </div>
+    </section>
+    <section id="section4">
+        <div class="header">Python工程师</div>
+        <div class="content">
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+        </div>
+    </section>
+    <section id="section5">
+        <div class="header">JS工程师</div>
+        <div class="content">
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+        </div>
+    </section>
+    <section id="section6">
+        <div class="header">Java工程师</div>
+        <div class="content">
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+        </div>
+    </section>
+    <section id="section7">
+        <div class="header">C#工程师</div>
+        <div class="content">
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
+            要提交的材料：<br>
+            1.简历,SNS账号（或链接），如微博、豆瓣等<br>
+            2.你应聘的理由<br>
+            3.你经常上的3个技术网站<br>
+            4.你阅读过的3本值得推荐的技术类书籍<br>
+            5.你参与开发的移动产品(名称,链接)<br>
+            工作地点：北京市海淀区知春路(离地铁站5分钟)<br>
+            请将简历发送至：hr@bytedance.com<br>
             要提交的材料：<br>
             1.简历,SNS账号（或链接），如微博、豆瓣等<br>
             2.你应聘的理由<br>

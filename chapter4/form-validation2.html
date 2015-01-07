@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="dist/semantic.css"/>
+    <style>
+        body {
+            font-family: '微软雅黑';
+        }
+        i.remove {
+            cursor: pointer;
+        }
+    </style>
+    <script src="../jquery/jquery-1.10.2.js"></script>
+    <script src="dist/semantic.js"></script>
+    <script>
+        $(function() {
+            $('.ui.checkbox').checkbox();
+        });
+    </script>
+    <script src="../angular/angular.min.js"></script>
+
+    <script>
+        var module = angular.module("TODOList",[]);
+        var todoController = module.controller("todoController",[function() {
+            var _self = this;
+            _self.user = {
+                username : {
+                    value : "",
+                    valid : false,
+                    validate : function() {
+                        if(this.value) {
+                            this.valid = true;
+                        } else {
+                            this.valid = false;
+                            return "required";
+                        }
+                    }
+                },
+                password : {
+                    value : "",
+                    valid : false,
+                    validate : function() {
+
+                        if(!this.value) {
+                            this.valid = false;
+                            return "required";
+                        } else if(this.value.length < 5) {
+                            return "minlength5";
+                        } else {
+                            this.valid = true;
+                        }
+                    }
+                },
+                repassword : {
+                    value : "",
+                    valid : false,
+                    validate : function(password) {
+                        if(this.value == password) {
+                            this.valid = true;
+                        } else {
+                            this.valid = false;
+                            return "unequal";
+                        }
+                    }
+                },
+                validate : function() {
+                    return this.username.valid && this.password.valid && this.repassword.valid;
+                },
+                check : function() {
+                    if($("#ck").prop("checked")) {
+                        this.agree = true;
+                    } else {
+                        this.agree = false;
+                    }
+                },
+                agree : true
+
+            };
+            _self.click = function() {
+                alert("agree:" + _self.user.agree);
+            }
+
+        }]);
+    </script>
+</head>
+<body ng-app="TODOList">
+<div class="ui four column grid">
+    <div class="column two">
+
+    </div>
+    <div class="column eight wide" ng-controller="todoController as ctrl">
+        <div class="ui segment">
+            <div class="ui large header" contenteditable="true">注册新用户</div>
+            <div class="ui blue inverted segment">
+                请在下面填写您的信息：
+            </div>
+            <div class="ui form">
+                <div class="required field" ng-class="ctrl.user.username.valid?'':'error'">
+                    <label>用户名：</label>
+                    <div class="ui left icon input">
+                        <input ng-model="ctrl.user.username.value" placeholder="用户名" type="text" ng-change="ctrl.user.username.validate()">
+                        <i class="user icon"></i>
+                    </div>
+                    <div ng-show="'required'==ctrl.user.username.validate()" class="ui red pointing above ui label">用户名不能为空</div>
+                </div>
+                <div class="required field" ng-class="ctrl.user.password.valid?'':'error'">
+                    <label>密码：</label>
+                    <div class="ui left icon input">
+                        <input ng-model="ctrl.user.password.value" placeholder="请输入密码" type="password">
+                        <i class="lock icon"></i>
+                    </div>
+                    <div ng-show="'required'==ctrl.user.password.validate()" class="ui red pointing above ui label">密码不能为空</div>
+                    <div ng-show="'minlength5'==ctrl.user.password.validate()" class="ui red pointing above ui label">密码必须不得小于5位</div>
+                </div>
+                <div class="required field" ng-class="ctrl.user.password.valid?(ctrl.user.repassword.valid?'':'error'):'disabled'">
+                    <label>再次输入密码：</label>
+                    <div class="ui left icon input">
+                        <input ng-model="ctrl.user.repassword.value" placeholder="请再次输入密码" type="password" ng-disabled="!ctrl.user.password.value">
+                        <i class="lock icon"></i>
+                    </div>
+                    <div ng-show="ctrl.user.password.valid && 'unequal'==ctrl.user.repassword.validate(ctrl.user.password.value)" class="ui red pointing above ui label">两次输入密码必须相同</div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox" ng-click="ctrl.user.check()">
+                        <input id="ck" type="checkbox" ng-checked="ctrl.user.agree">
+                        <label>I agree to the Terms and Conditions</label>
+                    </div>
+                </div>
+                <div class="ui green submit button" ng-click="ctrl.click()" ng-class="ctrl.user.validate()?'':'disabled'">Submit</div>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+
+    </div>
+</div>
+
+
+</body>
+</html>
