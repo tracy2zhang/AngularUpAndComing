@@ -14,11 +14,7 @@
     </style>
     <script src="../jquery/jquery-1.10.2.js"></script>
     <script src="dist/semantic.js"></script>
-    <script>
-        $(function() {
-            $('.ui.checkbox').checkbox();
-        });
-    </script>
+
     <script src="../angular/angular.min.js"></script>
 
     <script>
@@ -47,6 +43,7 @@
                             this.valid = false;
                             return "required";
                         } else if(this.value.length < 5) {
+                            this.valid = false;
                             return "minlength5";
                         } else {
                             this.valid = true;
@@ -74,15 +71,38 @@
                     } else {
                         this.agree = false;
                     }
+                    this.gender = $(".gender").find(":radio:checked").val();
                 },
-                agree : true
+                agree : true,
+                gender : "male",
+                college : "",
+                countries : [
+                    {label: 'USA' , cid: 1},
+                    {label: 'India' , cid: 2},
+                    {label: 'Other' , cid: 3}
+                ],
+                selectedCountryId : 2,
+                selectedValue : ""
 
             };
+
+            _self.user.selectedCountry = _self.user.countries[1];
+
             _self.click = function() {
                 alert("agree:" + _self.user.agree);
+                alert("gender:" + _self.user.gender);
+                alert("college:" + _self.user.college);
             }
 
         }]);
+
+    </script>
+    <script>
+        $(function() {
+            $('.ui.checkbox').checkbox();
+            $('.ui.radio.checkbox').checkbox();
+            $('select.dropdown').dropdown();
+        });
     </script>
 </head>
 <body ng-app="TODOList">
@@ -93,9 +113,14 @@
     <div class="column eight wide" ng-controller="todoController as ctrl">
         <div class="ui segment">
             <div class="ui large header" contenteditable="true">注册新用户</div>
-            <div class="ui blue inverted segment">
-                请在下面填写您的信息：
+            <div class="ui segment positive icon message">
+                <i class="mobile icon"></i>
+                <div class="content">
+                    <h3 class="header">Welcome</h3>
+                    <p>请在下面填写您的信息：</p>
+                </div>
             </div>
+            <form>
             <div class="ui form">
                 <div class="required field" ng-class="ctrl.user.username.valid?'':'error'">
                     <label>用户名：</label>
@@ -122,14 +147,58 @@
                     </div>
                     <div ng-show="ctrl.user.password.valid && 'unequal'==ctrl.user.repassword.validate(ctrl.user.password.value)" class="ui red pointing above ui label">两次输入密码必须相同</div>
                 </div>
+                <div class="inline fields gender">
+                    <label for="fruit">性别：</label>
+                    <div class="field">
+                        <div class="ui radio checkbox" ng-click="ctrl.user.check()">
+                            <input name="fruit" type="radio" value="male" ng-model="ctrl.user.gender">
+                            <label>男</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui radio checkbox" ng-click="ctrl.user.check()">
+                            <input name="fruit" type="radio" value="female" ng-model="ctrl.user.gender">
+                            <label>女</label>
+                        </div>
+                    </div>
+                </div>
                 <div class="field">
-                    <div class="ui checkbox" ng-click="ctrl.user.check()">
+                    <label>Country</label>
+                    <select class="ui dropdown" ng-model="ctrl.user.selectedValue">
+                        <option value="">请选择</option>
+                        <option ng-repeat="c in ctrl.user.countries" ng-value="c.cid">{{c.label}}</option>
+                    </select>
+                    Selected Country value : {{ctrl.user.selectedValue}}
+                </div>
+                <div class="field">
+                    <label>Country</label>
+                    <select class="ui dropdown" ng-model="ctrl.user.selectedCountryId" ng-options="c.cid as c.label for c in ctrl.user.countries">
+                    </select>
+                    Selected Country ID : {{ctrl.user.selectedCountryId}}
+                </div>
+                <div class="field">
+                    <label>Country</label>
+                    <select class="ui dropdown" ng-model="ctrl.user.selectedCountry" ng-options="c.label for c in ctrl.user.countries">
+                    </select>
+                    Selected Country : {{ctrl.user.selectedCountry.label}}
+                </div>
+                <div class="field">
+                    <label>学校</label>
+                    <select class="ui dropdown" ng-model="ctrl.user.college">
+                        <option value="">请选择您的学校</option>
+                        <option value="BUPT">北京邮电大学</option>
+                        <option value="USTB">北京科技大学</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox"  ng-click="ctrl.user.check()">
                         <input id="ck" type="checkbox" ng-checked="ctrl.user.agree">
                         <label>I agree to the Terms and Conditions</label>
                     </div>
                 </div>
                 <div class="ui green submit button" ng-click="ctrl.click()" ng-class="ctrl.user.validate()?'':'disabled'">Submit</div>
             </div>
+            </form>
         </div>
     </div>
     <div class="column">
