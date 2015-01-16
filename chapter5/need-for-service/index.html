@@ -1,0 +1,61 @@
+<html ng-app="notesApp" >
+<head>
+    <script
+            src="../../angular/angular1.3.8.js" >
+    </script>
+    <script>
+        var notesApp = angular.module('notesApp' , []);
+        var mainCtrl = notesApp.controller('MainCtrl' , ["$log",function($log) {
+            var self = this;
+            self. tab = 'first' ;
+            self. open = function(tab) {
+                self. tab = tab;
+            };
+        }]);
+        var subCtrl = mainCtrl.controller('SubCtrl' , ["$log", function($log) {
+            var self = this;
+            self. list = [
+                {id: 1, label: 'Item 0' },
+                {id: 2, label: 'Item 1' }
+            ];
+            self. add = function() {
+                $log.log(self.list.length);
+                self. list. push({
+                    id: self. list. length + 1,
+                    label: 'Item ' + self. list. length
+                });
+                $log.log(self.list.length);
+            };
+        }]);
+    </script>
+</head>
+<body ng-controller="MainCtrl as mainCtrl" >
+<h1>Hello Controllers! </h1>
+<button ng-click="mainCtrl.open('first')" >Open First</button>
+<button ng-click="mainCtrl.open('second')" >Open Second</button>
+<div ng-switch on="mainCtrl.tab" >
+    <div ng-switch-when="first" >
+        <div ng-controller="SubCtrl as ctrl" >
+            <h3>First tab</h3>
+            <ul>
+                <li ng-repeat="item in ctrl.list" >
+                    <span ng-bind="item.label" ></span>
+                </li>
+            </ul>
+            <button ng-click="ctrl.add()" >Add More Items</button>
+        </div>
+    </div>
+    <div ng-switch-when="second" >
+        <div ng-controller="SubCtrl as ctrl" >
+            <h3>Second tab</h3>
+            <ul>
+                <li ng-repeat="item in ctrl.list" >
+                    <span ng-bind="item.label" ></span>
+                </li>
+            </ul>
+            <button ng-click="ctrl.add()" >Add More Items</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
