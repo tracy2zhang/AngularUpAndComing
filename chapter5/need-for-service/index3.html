@@ -4,7 +4,51 @@
             src="../../angular/angular1.3.8.js" >
     </script>
     <script>
+
+        function ItemService(defaultItems) {
+            var items = defaultItems || [];
+
+            this.add = function(item) {
+                items.push(item);
+            }
+
+            this.list = function() {
+                return items;
+            }
+        }
+
         var notesApp = angular.module('notesApp' , []);
+
+        notesApp.provider("ItemService", function () {
+            var haveDefaultItems = true;
+
+            this.disableDefaultItems = function() {
+                haveDefaultItems = false;
+            }
+
+            this.$get = ["$log", function ($log) {
+                $log.log("Provide ItemService");
+                var optItems = [];
+                if(haveDefaultItems) {
+                    optItems.push({
+                        id:1, label:"Item 0"
+                    });
+                }
+                return new ItemService(optItems);
+            }]
+        });
+        notesApp.config(["ItemServiceProvider",function(ItemServiceProvider) {
+            //调用provider的名称是service名后面加上Provider
+            //然而，值得注意的是在config阶段，只有provider能被注入（只有两个例外是$provide和$injector)。
+            //也就是说如果我们自己实现的service需要根据实际情况去做一些设置的话，就得用provider这种方法去声明service
+            //$log.log("configuration!");
+            console.log("configuration!");
+            var shouldHaveDefaults = false;
+
+            if(!shouldHaveDefaults) {
+                ItemServiceProvider.disableDefaultItems();
+            }
+        }]);
 
         var mainCtrl = notesApp.controller('MainCtrl' , ["$log",function($log) {
             var self = this;
@@ -27,29 +71,8 @@
                 });
             };
         }]);
-        var itemService = notesApp.factory("ItemService",[function(){
-            var items = [
-                {
-                    id : 1,
-                    label : "Item 0"
-                },
-                {
-                    id : 2,
-                    label : "Item 1"
-                }
-            ];
 
-            return {
-                add : function(item) {
-                    items.push(item);
-                },
-                list : function() {
-                    return items;
-                }
-            };
-        }]);
-
-        alert(mainCtrl === itemService);  //module的controller方法返回的还是module本身
+        //alert(mainCtrl === itemService);  //module的controller方法返回的还是module本身
 
 
     </script>
