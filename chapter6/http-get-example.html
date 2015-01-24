@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../dist/semantic.css"/>
+    <style>
+        body {
+            font-family: '微软雅黑';
+        }
+        i.remove {
+            cursor: pointer;
+        }
+        label {
+            cursor: pointer;
+        }
+    </style>
+    <script src="../jquery/jquery-1.10.2.js"></script>
+    <script src="../dist/semantic.js"></script>
+    <script src="../angular/angular1.3.8.js"></script>
+
+    <script>
+        angular.module('notesApp',[])
+                .controller("MainCtrl",["$http", "$log", function($http,$log) {
+                    var self = this;
+                    self.items = [];
+                    $http.get("/api/note").then(function(response) {
+                        self.items = response.data;
+                    }, function (errorResponse) {
+                        $log.error("error fetching data");
+                    });
+                }]);
+    </script>
+
+</head>
+<body ng-app="notesApp">
+<div class="ui four column grid">
+    <div class="column"></div>
+    <div class="column">
+        <div class="ui segment">
+            <div class="ui list" ng-controller="MainCtrl as ctrl">
+                <div class="item" ng-repeat="item in ctrl.items">
+                    <div class="header">
+                        <i class="student icon"></i>
+                        <span ng-bind="item.author"></span>
+                    </div>
+                    <div>
+                        <i class="tag icon"></i>
+                        <span ng-bind="item.label"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column"></div>
+    <div class="column"></div>
+</div>
+
+</body>
+</html>
