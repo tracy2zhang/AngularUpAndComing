@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../dist/semantic.css"/>
+    <style>
+        body {
+            font-family: '微软雅黑';
+        }
+        i.remove {
+            cursor: pointer;
+        }
+        label {
+            cursor: pointer;
+        }
+    </style>
+    <script src="../jquery/jquery-1.10.2.js"></script>
+    <script src="../dist/semantic.js"></script>
+    <script src="../angular/angular1.3.8.js"></script>
+    <script>
+
+        var filterApp = angular.module("filterApp",[]);
+        filterApp.controller("filterCtrl", ["$log",function($log) {
+            this.friends = [
+                {name:'John', phone:'555-1212', age:10},
+                {name:'Mary', phone:'555-9876', age:19},
+                {name:'Mike', phone:'555-4321', age:21},
+                {name:'Adam', phone:'555-5678', age:35},
+                {name:'Julie', phone:'555-8765', age:29}
+            ];
+            this.predicate = '-age';
+            this.reverse = false;
+        }]);
+
+    </script>
+</head>
+<body ng-app="filterApp">
+    <div class="ui three column grid" ng-controller="filterCtrl as ctrl">
+        <div class="column">
+            <pre>Sorting predicate = {{ctrl.predicate}}; reverse = {{ctrl.reverse}}</pre>
+            <div class="ui divider"></div>
+            <div class="ui teal button" ng-click="ctrl.predicate=''">unsorted</div>
+        </div>
+        <div class="column">
+            <table class="ui table celled striped">
+                <thead>
+                    <tr>
+                        <th><a href="" ng-click="ctrl.predicate = 'name'; ctrl.reverse=false">Name</a>
+                            (<a href="" ng-click="ctrl.predicate = '-name'; ctrl.reverse=false">^</a>)</th>
+                        <th><a href="" ng-click="ctrl.predicate = 'phone'; ctrl.reverse=!ctrl.reverse">Phone Number</a></th>
+                        <th><a href="" ng-click="ctrl.predicate = 'age'; ctrl.reverse=!ctrl.reverse">Age</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="friend in ctrl.friends | orderBy:ctrl.predicate:ctrl.reverse">
+                        <td>{{friend.name}}</td>
+                        <td>{{friend.phone}}</td>
+                        <td>{{friend.age}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="column">
+            <table class="ui celled striped table">
+                <thead>
+                <tr>
+                    <th>ffff</th>
+                    <th>Arguments</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>reset rating</td>
+                        <td>None</td>
+                        <td>Resets rating to default value</td>
+                    </tr>
+                    <tr>
+                        <td>set rating</td>
+                        <td>rating (integer)</td>
+                        <td>Sets the current star rating to specified value</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../dist/semantic.css"/>
+    <style>
+        body {
+            font-family: '微软雅黑';
+        }
+        i.remove {
+            cursor: pointer;
+        }
+        label {
+            cursor: pointer;
+        }
+    </style>
+    <script src="../jquery/jquery-1.10.2.js"></script>
+    <script src="../dist/semantic.js"></script>
+    <script src="../angular/angular.min.js"></script>
+    <script src="../angular/angular-route.min.js"></script>
+    <script>
+
+        var routeApp = angular.module("routeApp",["ngRoute"]).config(["$routeProvider", function($routeProvider) {
+            $routeProvider.when("/1", {
+                templateUrl : "template1.html",
+                controller : "routeCtrl as ctrl"
+            }).when("/2", {
+                templateUrl : "template2.html",
+                controller : "routeCtrl",
+                controllerAs : "ctrl"
+            });
+        }]);
+        routeApp.controller("routeCtrl", ["$log",function($log) {
+            this.students = [
+                {
+                    name : "zhang1",
+                    age : 1
+                },
+                {
+                    name : "zhang2",
+                    age : 2
+                },
+                {
+                    name : "zhang3",
+                    age : 3
+                },
+                {
+                    name : "zhang4",
+                    age : 4
+                }
+            ]
+        }]);
+
+    </script>
+</head>
+<body ng-app="routeApp">
+    <a href="#/1">template1</a><br>
+    <a href="#/2">template2</a>
+    <div ng-view>
+
+    </div>
+</body>
+
+</html>

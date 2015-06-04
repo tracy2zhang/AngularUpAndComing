@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>语音识别</title>
+    <link rel="stylesheet" href="../dist/semantic.css"/>
+    <style>
+        body {
+            font-family: '微软雅黑';
+        }
+        i.remove {
+            cursor: pointer;
+        }
+        label {
+            cursor: pointer;
+        }
+
+        #record {
+            font-size: 40px;
+        }
+
+    </style>
+    <script src="../jquery/jquery-1.10.2.js"></script>
+    <script src="../dist/semantic.js"></script>
+    <script src="../angular/angular.min.js"></script>
+    <script src="../angular/angular-route.min.js"></script>
+    <script>
+
+
+        $(function() {
+            /*var SpeechRecognition = window.SpeechRecognition ||
+                    window.webkitSpeechRecognition ||
+                    window.mozSpeechRecognition ||
+                    window.oSpeechRecognition ||
+                    window.msSpeechRecognition;
+
+            if (SpeechRecognition) {
+                var recognition = new SpeechRecognition();
+                recognition.maxAlternatives = 1;
+                recognition.continuous = true;
+                recognition.interimResults = true;
+            }
+
+            var result = $('#result');
+
+            recognition.onsoundstart = function() {
+                result.html("Speak now...");
+            };
+
+            recognition.onnomatch = function() {
+                result.html("Try again please...");
+            };
+
+            recognition.onerror = function() {
+                result.html("Error. Try Again...");
+            };
+
+            recognition.onresult = function(event) { // SpeechRecognitionEvent
+                if (event.results.length > 0) {
+                    // Results are ordered by confidence level, highest-confidence item first
+                    var results = event.results[0], // SpeechRecognitionResultList
+                            topResult = results[0]; // SpeechRecognitionResult
+
+                    result.html(topResult.transcript);
+                }
+            };
+            $("#record").click(function() {
+                recognition.start();
+            });*/
+
+            $.post("http://api.boxfish.cn/course/recommend?access_token=JajBEqAZki",function(data) {
+                console.log(data);
+            });
+        });
+
+
+    </script>
+</head>
+<body>
+    <div id="record" class="ui icon button">
+        <i class="unmute icon"></i>
+    </div>
+    <div id="result">
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../dist/semantic.css"/>
+    <style>
+        body {
+            font-family: '微软雅黑';
+        }
+        i.remove {
+            cursor: pointer;
+        }
+        label {
+            cursor: pointer;
+        }
+    </style>
+    <script src="../jquery/jquery-1.10.2.js"></script>
+    <script src="../dist/semantic.js"></script>
+    <script src="../angular/angular1.3.8.js"></script>
+    <script>
+
+        var filterApp = angular.module("filterApp",[]);
+        filterApp.controller("filterCtrl", ["$log",function($log) {
+            this.amount = 1024;
+            this.totalCost = 4906;
+            this.name = 'Shyam Seshadri';
+            this.startTime = new Date().getTime();
+            this.obj = {
+              name : "zhangyi",
+              age : 24
+            };
+        }]);
+
+        $(function() {
+            $(".button.open").click(function() {
+                $('.modal').modal({
+                    onVisible : function() {
+                        $(".button.close").click();
+                    },
+                    duration : 100,
+                    onDeny : function() {
+                        setTimeout(function() {
+                            $('.modal').modal('show');
+                        },200);
+                    },
+                    onHidden : function () {
+                        alert("go");
+                    }
+                }).modal('show');
+            });
+            /*$(".button.close").click(function() {
+                alert('go');
+                //$('.modal').modal('hide');
+            });*/
+
+        });
+
+    </script>
+</head>
+<body ng-app="filterApp">
+    <div class="ui three column grid" ng-controller="filterCtrl as ctrl">
+        <div class="column"></div>
+        <div class="column">
+            <div class="ui blue inverted segment">
+                Amount as a number: {{ctrl.amount | number:4}}
+            </div>
+            <div class="ui green inverted segment">
+                Total Cost as a currency: {{ctrl.totalCost | currency:'&#163'}}
+            </div>
+            <div class="ui red inverted segment">
+                Total Cost in INR: {{ctrl.totalCost | currency:'RMB '}}
+            </div>
+            <div class="ui yellow inverted segment">
+                Shouting the name: {{ctrl.name | uppercase}}
+            </div>
+            <div class="ui grey inverted segment">
+                Whispering the name: {{ctrl.name | lowercase | uppercase | limitTo:-5}}
+            </div>
+            <div class="ui purple inverted segment">
+                Start Time: {{ctrl.startTime | date}}
+            </div>
+            <div class="ui purple inverted segment">
+                Start Time: {{ctrl.startTime | date:'medium'}}
+            </div>
+            <div class="ui purple inverted segment">
+                Start Time: {{ctrl.startTime | date:'yyyy-MM-dd HH:mm:ss'}}
+            </div>
+            <div class="ui orange inverted segment">
+                obj: {{ctrl.obj | json}}
+            </div>
+        </div>
+        <div class="column">
+            <div class="open ui primary button">
+                open
+            </div>
+            <div class="close ui button">
+                close
+            </div>
+        </div>
+        <div class="ui modal">
+            <i class="close icon"></i>
+            <div class="header">
+                Profile Picture
+            </div>
+            <div class="content">
+                <div class="description">
+                    <div class="ui header">We've auto-chosen a profile image for you.</div>
+                    <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+                    <p>Is it okay to use this photo?</p>
+                </div>
+                <div class="ui button">
+                    close
+                </div>
+            </div>
+            <div class="actions">
+                <div class="ui negative black button">
+                    Nope
+                </div>
+                <div class="ui positive right labeled icon button">
+                    Yep, that's me
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
